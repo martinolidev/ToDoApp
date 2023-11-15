@@ -19,16 +19,13 @@ struct ContentView: View {
 struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
-    //Colors
-    @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal]
     
     @State var todoItems: [String] = ["SwiftUI Practice", "Watch lesson 3 of CS193P"]
     
     var body: some View {
         titleBar
         ScrollView {
-            toDoCard.frame(height: 100)
-                .foregroundColor(.yellow)
+            toDoCardContainer
         }
         addButton
     }
@@ -53,16 +50,10 @@ struct MainView: View {
         }
     }
     
-    //Add a random color to the added chore
-    func getTheColors(from colorPalette: [Color]) -> Color? {
-        return colorPalette.randomElement()
-    }
-    
-    var toDoCard: some View {
+    var toDoCardContainer: some View {
         Group {
-            ForEach(todoItems, id: \.self) {
-                index in RoundedRectangle(cornerRadius: 10)
-                Text(index).foregroundStyle(.white)
+            ForEach(0..<todoItems.count, id: \.self) {
+                index in todoCard()
             }
         }
     }
@@ -84,6 +75,22 @@ struct MainView: View {
                 .font(.title3)
                 .bold()
         }
+    }
+}
+
+struct todoCard: View {
+    //Colors
+    @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal]
+    
+    //Add a random color to the added chore
+    func getTheColors(from colorPalette: [Color]) -> Color? {
+        return colorPalette.randomElement()
+    }
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .frame(height: 70)
+            .foregroundColor(getTheColors(from: colorPalette))
     }
 }
 
