@@ -53,7 +53,7 @@ struct MainView: View {
     var toDoCardContainer: some View {
         Group {
             ForEach(0..<todoItems.count, id: \.self) {
-                index in todoCard()
+                index in todoCard(content: todoItems[index])
             }
         }
     }
@@ -87,10 +87,19 @@ struct todoCard: View {
         return colorPalette.randomElement()
     }
     
+    let content: String
+    
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .frame(height: 70)
-            .foregroundColor(getTheColors(from: colorPalette))
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 10)
+                .frame(height: 70)
+                .foregroundColor(getTheColors(from: colorPalette))
+            Text(content)
+                .foregroundStyle(.white)
+                .font(.title2)
+                .padding()
+                .bold()
+        }
     }
 }
 
