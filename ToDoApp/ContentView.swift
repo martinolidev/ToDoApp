@@ -21,6 +21,7 @@ struct MainView: View {
     @State var currentDate = Date()
     @State var newItem = ""
     @State var todoItems: [String] = []
+    @State var showAlert: Bool = false
     
     var body: some View {
         titleBar
@@ -50,11 +51,16 @@ struct MainView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .textCase(nil)
             Button {
-                todoItems.append(newItem)
+                if !newItem.isEmpty {
+                    todoItems.append(newItem)
+                    newItem = ""
+                } else {
+                    showAlert.toggle()
+                }
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: 80, height: 60)
-                    .foregroundColor(.indigo)
+                    .foregroundColor(.black)
                     .overlay(
                         Image(systemName: "plus.square.dashed")
                             .foregroundColor(.white)
@@ -64,6 +70,13 @@ struct MainView: View {
                     )
             }
         }
+        .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Empty Field!"),
+                            message: Text("Please enter something in the field."),
+                            dismissButton: .default(Text("Ok"))
+                        )
+                    }
     }
     
     var toDoCardContainer: some View {
