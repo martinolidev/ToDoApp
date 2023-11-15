@@ -19,7 +19,8 @@ struct ContentView: View {
 struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
-    
+    //Colors
+    @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal]
     var body: some View {
         titleBar
         ScrollView {
@@ -48,10 +49,15 @@ struct MainView: View {
         }
     }
     
+    //Add a random color to the added chore
+    func getTheColors(from colorPalette: [Color]) -> Color? {
+        return colorPalette.randomElement()
+    }
+    
     var toDoCard: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(.indigo)
+                .foregroundColor(getTheColors(from: colorPalette))
                 .frame(height: 70)
             Text("Ejemplo 1")
                 .foregroundStyle(Color(.white))
