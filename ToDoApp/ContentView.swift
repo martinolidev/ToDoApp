@@ -21,10 +21,14 @@ struct MainView: View {
     @State var currentDate = Date()
     //Colors
     @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal]
+    
+    @State var todoItems: [String] = ["SwiftUI Practice", "Watch lesson 3 of CS193P"]
+    
     var body: some View {
         titleBar
         ScrollView {
-            toDoCard
+            toDoCard.frame(height: 100)
+                .foregroundColor(.yellow)
         }
         addButton
     }
@@ -55,15 +59,11 @@ struct MainView: View {
     }
     
     var toDoCard: some View {
-        ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(getTheColors(from: colorPalette))
-                .frame(height: 70)
-            Text("Ejemplo 1")
-                .foregroundStyle(Color(.white))
-                .font(.title)
-                .bold()
-                .padding()
+        Group {
+            ForEach(todoItems, id: \.self) {
+                index in RoundedRectangle(cornerRadius: 10)
+                Text(index).foregroundStyle(.white)
+            }
         }
     }
     
