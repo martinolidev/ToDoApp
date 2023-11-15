@@ -38,7 +38,7 @@ struct MainView: View {
     var placeHolder: some View {
         VStack {
             Spacer()
-            Text("Tap the button!")
+            Text("Add something!")
                 .font(.largeTitle)
                 .bold()
             Spacer()
