@@ -19,7 +19,7 @@ struct ContentView: View {
 struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
-    
+    @State var newItem = ""
     @State var todoItems: [String] = ["Do the dishes", "Clean my room", "Therapy session"]
     
     var body: some View {
@@ -46,9 +46,11 @@ struct MainView: View {
     
     var addButton: some View {
         HStack {
-            Spacer()
+            TextField("Tell me something magical!", text: $newItem)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .textCase(nil)
             Button {
-                //
+                todoItems.append(newItem)
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: 80, height: 60)
