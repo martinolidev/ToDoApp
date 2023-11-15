@@ -48,8 +48,9 @@ struct MainView: View {
     var addButton: some View {
         HStack {
             TextField("Tell me something magical!", text: $newItem)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .textCase(nil)
+                .disableAutocorrection(true)
+                .textFieldStyle(.roundedBorder)
             Button {
                 if !newItem.isEmpty {
                     todoItems.append(newItem)
@@ -82,7 +83,9 @@ struct MainView: View {
     var toDoCardContainer: some View {
         Group {
             ForEach(0..<todoItems.count, id: \.self) {
-                index in todoCard(content: todoItems[index])
+                index in todoCard(content: todoItems[index]).onTapGesture(perform: {
+                    todoItems.remove(at: index)
+                })
             }
         }
     }
