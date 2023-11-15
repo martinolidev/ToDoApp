@@ -20,14 +20,28 @@ struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
     
-    @State var todoItems: [String] = ["SwiftUI Practice", "Watch lesson 3 of CS193P"]
+    @State var todoItems: [String] = ["Do the dishes", "Clean my room", "Therapy session"]
     
     var body: some View {
         titleBar
-        ScrollView {
-            toDoCardContainer
+        if todoItems.isEmpty {
+            placeHolder
+        } else {
+            ScrollView {
+                toDoCardContainer
+            }
         }
         addButton
+    }
+    
+    var placeHolder: some View {
+        VStack {
+            Spacer()
+            Text("Tap the button!")
+                .font(.largeTitle)
+                .bold()
+            Spacer()
+        }
     }
     
     var addButton: some View {
@@ -80,7 +94,7 @@ struct MainView: View {
 
 struct todoCard: View {
     //Colors
-    @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal]
+    @State var colorPalette: [Color] = [.indigo, .mint, .cyan, .pink, .teal, .orange, .purple, .green]
     
     //Add a random color to the added chore
     func getTheColors(from colorPalette: [Color]) -> Color? {
