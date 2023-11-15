@@ -20,7 +20,7 @@ struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
     @State var newItem = ""
-    @State var todoItems: [String] = ["Do the dishes", "Clean my room", "Therapy session"]
+    @State var todoItems: [String] = []
     
     var body: some View {
         titleBar
