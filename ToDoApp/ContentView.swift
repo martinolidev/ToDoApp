@@ -20,17 +20,31 @@ struct MainView: View {
     //A state property to allow dynamic changes on the date
     @State var currentDate = Date()
     
-    //Formats currentDate using given date format, returns formatted string
-    func getCurrentDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: currentDate)
-    }
-    
     var body: some View {
         titleBar
         ScrollView {
             toDoCard
+        }
+        addButton
+    }
+    
+    var addButton: some View {
+        HStack {
+            Spacer()
+            Button {
+                //
+            } label: {
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(width: 80, height: 60)
+                    .foregroundColor(.indigo)
+                    .overlay(
+                        Image(systemName: "plus.square.dashed")
+                            .foregroundColor(.white)
+                            .imageScale(.large)
+                            .font(.title)
+                            .bold()
+                    )
+            }
         }
     }
     
@@ -45,6 +59,13 @@ struct MainView: View {
                 .bold()
                 .padding()
         }
+    }
+    
+    //Formats currentDate using given date format, returns formatted string
+    func getCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: currentDate)
     }
     
     var titleBar: some View {
