@@ -28,6 +28,7 @@ struct MainView: View {
         if todoItems.isEmpty {
             placeHolder
         } else {
+            Text("Tap to remove").bold()
             ScrollView {
                 toDoCardContainer
             }
